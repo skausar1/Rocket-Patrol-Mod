@@ -56,12 +56,15 @@ class Play extends Phaser.Scene {
             },
             fixedWidth: 100
         }
+        //creating the score display for current score
         this.scoreLeft = this.add.text(69, 54, this.p1Score, scoreConfig);
+        //creating the highscore during the play section
         this.highScoreText = this.add.text(480, 54, highScore, scoreConfig);
 
+        //used for a gameover state
         this.gameOver =false;
 
-    
+        //sets the clock that will be used in the background
         scoreConfig.fixedWidth = 0;
         this.clock = this.time.delayedCall(60000, () => {
             this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
@@ -72,10 +75,11 @@ class Play extends Phaser.Scene {
     }
 
     update(){
+        //checks to see if the game is over, if so end game and stop input
         if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyF)) {
             this.scene.restart(this.p1Score);
         }
-        this.starfield.tilePositionX -= 4;
+        //if the game is not over, update all assests
         if(!this.gameOver)
         {
             this.p1Rocket.update();
@@ -86,9 +90,14 @@ class Play extends Phaser.Scene {
             {
                 highScore = this.p1Score;
                 this.highScoreText.text = highScore;
+                localStorage.setItem('hiscore', highScore);
             }
         }
 
+        //sets the background movement of the scene
+        this.starfield.tilePositionX -= 4;
+
+        //check collision of each spaceship and give points
         if(this.checkCollision(this.p1Rocket, this.ship03)) {
             this.p1Rocket.reset();
             this.sound.play('sfx_explosion');
@@ -110,6 +119,7 @@ class Play extends Phaser.Scene {
         }
     }
 
+    //check collision method
     checkCollision(rocket, ship){
         if(rocket.x < ship.x + ship.width && 
             rocket.x + rocket.width > ship.x && 
@@ -121,6 +131,7 @@ class Play extends Phaser.Scene {
             return false;
         }
     }
+    //have the ships explode and play an animation
     shipExplode(ship){
         ship.alpha = 0;
         let boom = this.add.sprite(ship.x, ship.y, 'explosion').setOrigin(0,0);
