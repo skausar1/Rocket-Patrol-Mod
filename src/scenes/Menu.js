@@ -46,6 +46,10 @@ class Menu extends Phaser.Scene {
             highScore = 0;
             localStorage.setItem('hiscore', highScore);
         }
+
+        menuConfig.backgroundColor ='#B45A55';
+        this.add.text(centerX, centerY + textSpacer + textSpacer, 'Current HighScore: ' + highScore, menuConfig).setOrigin(0.5);
+
         
     }
 
