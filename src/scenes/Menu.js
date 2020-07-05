@@ -36,6 +36,16 @@ class Menu extends Phaser.Scene {
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
 
+        if(localStorage.getItem('hiscore') != null){
+            highScore = parseInt(localStorage.getItem('hiscore'));
+            localStorage.setItem('hiscore', highScore);
+            console.log(highScore);
+            
+        }
+        else{
+            highScore = 0;
+            localStorage.setItem('hiscore', highScore);
+        }
         
     }
 

@@ -14,3 +14,4 @@ game.settings = {
 }
 
 let keyF, keyLEFT, keyRIGHT;
+let highScore;

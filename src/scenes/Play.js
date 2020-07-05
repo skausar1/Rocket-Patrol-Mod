@@ -57,6 +57,7 @@ class Play extends Phaser.Scene {
             fixedWidth: 100
         }
         this.scoreLeft = this.add.text(69, 54, this.p1Score, scoreConfig);
+        this.highScoreText = this.add.text(480, 54, highScore, scoreConfig);
 
         this.gameOver =false;
 
@@ -81,6 +82,11 @@ class Play extends Phaser.Scene {
             this.ship01.update();
             this.ship02.update();
             this.ship03.update();
+            if(this.p1Score > highScore)
+            {
+                highScore = this.p1Score;
+                this.highScoreText.text = highScore;
+            }
         }
 
         if(this.checkCollision(this.p1Rocket, this.ship03)) {
